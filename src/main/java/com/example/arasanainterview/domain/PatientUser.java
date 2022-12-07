@@ -1,6 +1,6 @@
 package com.example.arasanainterview.domain;
 
-import com.example.arasanainterview.api.resource.ListPatientResource;
+import com.example.arasanainterview.api.resource.PatientResource;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.GenericGenerator;
@@ -26,13 +26,17 @@ public class PatientUser {
 
     private String surname;
 
-    public List<ListPatientResource> builder(List<PatientUser> patientUsers) {
+    public List<PatientResource> builder(List<PatientUser> patientUsers) {
         return patientUsers.stream().map(user ->
-                        ListPatientResource
+                        PatientResource
                                 .builder()
                                 .name(user.getName())
                                 .surname(user.getSurname())
                                 .build())
                 .collect(Collectors.toList());
+    }
+
+    public PatientResource toDto(PatientUser patientUser) {
+        return PatientResource.builder().name(patientUser.getName()).surname(patientUser.getSurname()).build();
     }
 }

@@ -5,7 +5,7 @@ import lombok.Data;
 
 @Data
 @Builder
-public class ListPatientResource {
+public class PatientResource {
     private String name;
     private String surname;
 }
