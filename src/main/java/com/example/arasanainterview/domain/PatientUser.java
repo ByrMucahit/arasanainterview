@@ -9,6 +9,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -25,6 +26,9 @@ public class PatientUser {
     private String name;
 
     private String surname;
+
+    @OneToMany(mappedBy = "patientUser")
+    private List<Visit> list;
 
     public List<PatientResource> builder(List<PatientUser> patientUsers) {
         return patientUsers.stream().map(user ->

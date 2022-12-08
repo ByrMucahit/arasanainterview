@@ -1,4 +1,4 @@
-package com.example.arasanainterview.api.request;
+package com.example.arasanainterview.api.request.PatientRequest;
 
 import lombok.Builder;
 import lombok.Data;

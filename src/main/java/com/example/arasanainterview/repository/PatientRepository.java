@@ -11,4 +11,6 @@ public interface PatientRepository extends PagingAndSortingRepository<PatientUse
     List<PatientUser> findAll();
 
     Optional<PatientUser> findById(@Param("id") long id);
+
+    boolean existsByNameAndSurname(@Param("name") String name, @Param("surname") String surname);
 }

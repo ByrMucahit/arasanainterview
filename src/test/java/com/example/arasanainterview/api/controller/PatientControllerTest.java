@@ -1,10 +1,9 @@
 package com.example.arasanainterview.api.controller;
 
-import com.example.arasanainterview.api.request.SavePatientRequest;
-import com.example.arasanainterview.api.request.UpdatePatientRequest;
+import com.example.arasanainterview.api.request.PatientRequest.SavePatientRequest;
+import com.example.arasanainterview.api.request.PatientRequest.UpdatePatientRequest;
 import com.example.arasanainterview.domain.PatientUser;
 import com.example.arasanainterview.service.patient.PatientService;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -22,7 +21,6 @@ import java.util.Collections;
 
 import static org.mockito.BDDMockito.given;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @ExtendWith(SpringExtension.class)
