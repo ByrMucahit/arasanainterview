@@ -30,7 +30,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @ExtendWith(SpringExtension.class)
 @WebMvcTest(controllers = PatientContoller.class)
 @AutoConfigureMockMvc(addFilters = false)
-public class PatientControllerTest {
+class PatientControllerTest {
 
     @Autowired
     private MockMvc mockMvc;
@@ -39,8 +39,8 @@ public class PatientControllerTest {
     private PatientService patientService;
 
     @Test
-    public void getGivenValidRequestParameters_WhenFindOnePatient_thenReturnResource() throws Exception {
-        given(this.patientService.findOnePatient(1)).willReturn(preparePatientUser("mucahit", "bayar"));
+    void getGivenValidRequestParameters_WhenFindOnePatient_thenReturnResource() throws Exception {
+        given(this.patientService.findOnePatient(1)).willReturn(preparePatientUser());
 
         this.mockMvc.perform(MockMvcRequestBuilders.get("/api/patient/find-one/{id}", 1)
                         .accept(MediaType.APPLICATION_JSON)).andDo(print())
@@ -50,7 +50,7 @@ public class PatientControllerTest {
     }
 
     @Test
-    public void givenValidRequestParameters_whenCreatePatient_thenShouldOk() throws Exception {
+    void givenValidRequestParameters_whenCreatePatient_thenShouldOk() throws Exception {
         SavePatientRequest request = SavePatientRequest.builder().name("mucahit").surname("bayar").build();
 
         this.mockMvc.perform(MockMvcRequestBuilders.post("/api/patient/create")
@@ -60,12 +60,12 @@ public class PatientControllerTest {
     }
 
     @Test
-    public void givenValidRequestParameters_whenListPatient_thenShouldOk() throws Exception {
+    void givenValidRequestParameters_whenListPatient_thenShouldOk() throws Exception {
 
         given(this.patientService
                 .getAllPatientUsers())
                 .willReturn(Collections
-                        .singletonList(preparePatientUser("mucahit", "bayar")));
+                        .singletonList(preparePatientUser()));
 
         this.mockMvc.perform(MockMvcRequestBuilders.get("/api/patient/list")
                         .accept(MediaType.APPLICATION_JSON))
@@ -97,10 +97,10 @@ public class PatientControllerTest {
         return Collections.singletonList(examination);
     }
 
-    private PatientUser preparePatientUser(String name, String surname) {
+    private PatientUser preparePatientUser() {
         PatientUser user = new PatientUser();
-        user.setName(name);
-        user.setSurname(surname);
+        user.setName("mucahit");
+        user.setSurname("bayar");
         user.setList(prepareVisitList(user));
         return user;
     }
