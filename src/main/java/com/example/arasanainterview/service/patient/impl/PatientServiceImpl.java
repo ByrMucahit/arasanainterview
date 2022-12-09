@@ -1,7 +1,7 @@
 package com.example.arasanainterview.service.patient.impl;
 
-import com.example.arasanainterview.api.request.PatientRequest.SavePatientRequest;
-import com.example.arasanainterview.api.request.PatientRequest.UpdatePatientRequest;
+import com.example.arasanainterview.api.request.patient.SavePatientRequest;
+import com.example.arasanainterview.api.request.patient.UpdatePatientRequest;
 import com.example.arasanainterview.domain.PatientUser;
 import com.example.arasanainterview.exception.UserAlreadyExistException;
 import com.example.arasanainterview.exception.UserNotFoundException;
@@ -29,6 +29,11 @@ public class PatientServiceImpl implements PatientService {
     public void createPatient(SavePatientRequest savePatientRequest) {
         this.checksPatientExist(savePatientRequest.getName(), savePatientRequest.getSurname());
         patientRepository.save(preparePatientUserToSave(savePatientRequest));
+    }
+
+    @Override
+    public PatientUser createPatientByDto(SavePatientRequest savePatientRequest) {
+        return this.patientRepository.save(preparePatientUserToSave(savePatientRequest));
     }
 
     @Override
