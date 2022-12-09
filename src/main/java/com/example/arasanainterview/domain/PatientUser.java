@@ -47,8 +47,10 @@ public class PatientUser {
                 ListVisitorResource.builder()
                         .patientUserName(visit.getPatientUser().getName())
                         .patientUserSurname(visit.getPatientUser().getSurname())
-                        .localDate(visit.getVisitingDate()).build()).collect(Collectors.toList());
+                        .localDate(visit.getVisitingDate())
+                        .listExaminationResourceList(new Examination().builder(visit.getExaminations())).build()).collect(Collectors.toList());
     }
+
 
     public PatientResource toDto(PatientUser patientUser) {
         return PatientResource.builder().name(patientUser.getName()).surname(patientUser.getSurname()).build();

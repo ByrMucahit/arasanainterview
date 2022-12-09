@@ -38,7 +38,7 @@ public class PatientContoller {
         return patientUser.builder(patientService.getAllPatientUsers());
     }
 
-    @GetMapping("one/{id}")
+    @GetMapping("find-one/{id}")
     public PatientResource findOnePatient(@PathVariable long id) {
         log.info("TRANSACTION TO FINDING ONE PATIENT  has been started.");
         PatientUser patientUser = new PatientUser();
