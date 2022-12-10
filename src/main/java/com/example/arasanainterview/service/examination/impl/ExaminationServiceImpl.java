@@ -28,7 +28,7 @@ public class ExaminationServiceImpl implements ExaminationService {
     }
 
     @Override
-    public void createExaminationByUsinDto(VisitingExaminationDto visitingExaminationDto) {
+    public void createExaminationByUsingDto(VisitingExaminationDto visitingExaminationDto) {
         this.examinationRepository.save(prepareExaminationForDto(visitingExaminationDto.getTreatment(), visitingExaminationDto.getVisit()));
     }
 

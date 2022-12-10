@@ -12,5 +12,5 @@ public interface ExaminationService {
 
     List<Examination> findAll();
 
-    void createExaminationByUsinDto(VisitingExaminationDto visitingExaminationDto);
+    void createExaminationByUsingDto(VisitingExaminationDto visitingExaminationDto);
 }

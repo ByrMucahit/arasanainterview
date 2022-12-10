@@ -40,7 +40,7 @@ public class VisitorServiceImpl implements VisitorService {
                         .surname(saveVisitingRequest.getSurname()).build()));
 
         this.visitingRepository.save(prepareVisit(user));
-        this.examinationService.createExaminationByUsinDto(prepareVisitingExaminationDto(saveVisitingRequest.getTreatment(), user));
+        this.examinationService.createExaminationByUsingDto(prepareVisitingExaminationDto(saveVisitingRequest.getTreatment(), user));
 
     }
 

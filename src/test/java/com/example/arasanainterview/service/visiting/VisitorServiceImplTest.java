@@ -11,6 +11,8 @@ import com.example.arasanainterview.repository.VisitingRepository;
 import com.example.arasanainterview.service.examination.ExaminationService;
 import com.example.arasanainterview.service.patient.PatientService;
 import com.example.arasanainterview.service.visiting.impl.VisitorServiceImpl;
+import org.junit.Assert;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -21,6 +23,7 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 import java.time.LocalDate;
 import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 
 import static org.mockito.Mockito.when;
 
@@ -72,9 +75,8 @@ public class VisitorServiceImplTest {
     }
 
 
-
     @Test
-    void givenValidParameters_whenCreateDetailCaseNotSavedBefore_thenShouldOk() {
+    void givenValidParameters_whenCreateDetailCaseNotSavedPatientUserBefore_thenShouldOk() {
         // given
         SaveVisitingRequest request = SaveVisitingRequest.builder()
                 .treatment("headache")
@@ -94,7 +96,43 @@ public class VisitorServiceImplTest {
         this.visitorService.createDetail(request);
     }
 
+    @Test
+    void givenValidParameters_whenCreateDetailCaseSavedPatientUserBefore_thenShouldOk() {
+        // given
+        SaveVisitingRequest request = SaveVisitingRequest.builder()
+                .treatment("headache")
+                .surname("bayar")
+                .name("mucahit")
+                .nameOfTheDoctor("ahmet").build();
+
+        when(patientRepository.findByNameAndSurname(request.getName(), request.getSurname())).thenReturn(Optional.of(expectedPatientUser()));
+
+        when(visitingRepository.save(this.expectedVisits(expectedPatientUser()))).thenReturn(null);
+
+        this.visitorService.createDetail(request);
+    }
+
     private VisitingExaminationDto prepareVisitingExaminationDto(String treatment, PatientUser user) {
         return VisitingExaminationDto.builder().treatment(treatment).visit(expectedVisits(user)).build();
+    }
+
+    @Test
+    void test_whenFindAllVisitor_thenReturnResource() {
+        // given
+
+        //when
+        when(visitingRepository.findAllBy()).thenReturn(Collections.singletonList(expectedVisits(expectedPatientUser())));
+
+        List<Visit> response = visitorService.listAllVisitors();
+
+        Visit expectedVisit = response.get(0);
+
+        Assertions.assertEquals(10, expectedVisit.getId());
+        Assertions.assertEquals( LocalDate.of(2022, 12, 9), expectedVisit.getVisitingDate());
+        Assertions.assertEquals( "mucahit", expectedVisit.getPatientUser().getName());
+        Assertions.assertEquals("bayar", expectedVisit.getPatientUser().getSurname());
+        Assertions.assertEquals(1, expectedVisit.getPatientUser().getId());
+        Assertions.assertEquals( 0, expectedVisit.getExaminations().get(0).getId());
+        Assertions.assertEquals("headache", expectedVisit.getExaminations().get(0).getTreatment());
     }
 }
